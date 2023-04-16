@@ -3,6 +3,7 @@ import { AddButton } from "./button/AddButton";
 import { TodoDialog } from "./dialog/TodoDialog";
 import { Title, TodoStatus, TODO_STATUS } from "./table/common";
 import { Table } from "./table/Table";
+import { Box } from "@mui/material";
 
 const initialTodoList = [
     { title: "削除機能つける", status: TODO_STATUS.DONE },
@@ -55,7 +56,13 @@ export const TodoPage: React.FC = memo(() => {
     }, [todoList]);
 
     return (
-        <>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                p: 10,
+            }}
+        >
             <Table
                 todoList={todoList}
                 onChecked={handleChangeTodoStatus}
@@ -68,7 +75,7 @@ export const TodoPage: React.FC = memo(() => {
                 onSubmit={handleAddTodoList}
                 onClose={handleCloseDialog}
             />
-        </>
+        </Box>
     );
 });
 
