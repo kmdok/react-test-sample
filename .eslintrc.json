@@ -14,7 +14,8 @@
         "prettier",
         "jest",
         "testing-library",
-        "react-hooks"
+        "react-hooks",
+        "import"
     ],
     "rules": {
         "prettier/prettier": "error",
@@ -23,6 +24,30 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"]
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-unused-vars": ["error"],
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    ["parent", "sibling"],
+                    "object",
+                    "type"
+                ],
+                "newlines-between": "never",
+                "pathGroupsExcludedImportTypes": ["builtin"],
+                "alphabetize": { "order": "asc", "caseInsensitive": true },
+                "pathGroups": [
+                    {
+                        "pattern": "react**",
+                        "group": "external",
+                        "position": "before"
+                    }
+                ]
+            }
+        ]
     }
 }

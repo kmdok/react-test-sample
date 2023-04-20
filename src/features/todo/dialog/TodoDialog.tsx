@@ -1,3 +1,4 @@
+import { memo, useCallback, useEffect, useState } from "react";
 import {
     Dialog,
     DialogActions,
@@ -5,10 +6,9 @@ import {
     DialogTitle,
     TextField,
 } from "@mui/material";
-import { memo, useCallback, useEffect, useState } from "react";
-import { Title } from "../table/common";
 import { CloseButton } from "./button/CloseButton";
 import { SubmitButton } from "./button/SubmitButton";
+import { Title } from "../table/common";
 
 type TodoDialogProps = {
     todoTitleList: Title[];

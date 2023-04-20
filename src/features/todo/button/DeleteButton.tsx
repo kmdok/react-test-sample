@@ -1,6 +1,6 @@
+import { memo } from "react";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { memo } from "react";
 
 type DeleteButtonProps = {
     onClick: (value: string) => void;

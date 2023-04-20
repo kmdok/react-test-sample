@@ -1,7 +1,5 @@
+import { useMemo } from "react";
 import { Box, createTheme, ThemeProvider } from "@mui/material";
-import { useMemo, useState } from "react";
-import { AppHeader } from "./header/AppHeader";
-import { TodoPage } from "./features/todo/TodoPage";
 import {
     COLOR_MODE,
     ColorMode,
@@ -9,6 +7,8 @@ import {
     getDesignTokens,
     initialTheme,
 } from "./color/colors";
+import { TodoPage } from "./features/todo/TodoPage";
+import { AppHeader } from "./header/AppHeader";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {

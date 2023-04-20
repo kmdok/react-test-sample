@@ -1,7 +1,7 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
 import { memo, useCallback } from "react";
-import { DeleteButton } from "../button/DeleteButton";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { Todo, TodoList, TodoStatus, TODO_STATUS } from "./common";
+import { DeleteButton } from "../button/DeleteButton";
 
 type TableProps = {
     todoList: TodoList;
