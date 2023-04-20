@@ -1,6 +1,6 @@
 import { memo, useContext } from "react";
 import { AppBar, Box, Button, useTheme } from "@mui/material";
-import { ColorModeContext } from "../color/colors";
+import { ColorModeContext } from "../../color/colors";
 
 export const AppHeader = memo(() => {
     const theme = useTheme();

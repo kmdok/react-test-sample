@@ -8,8 +8,8 @@ import {
     initialTheme,
 } from "./color/colors";
 import { TodoPage } from "./features/todo/TodoPage";
-import { AppHeader } from "./header/AppHeader";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { AppHeader } from "./layout/header/AppHeader";
 
 function App() {
     const [themeValue, setThemeValue] = useLocalStorage<ColorMode>(

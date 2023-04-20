@@ -4,43 +4,57 @@ import { AddButton } from "./button/AddButton";
 import { TodoDialog } from "./dialog/TodoDialog";
 import { Title, TodoStatus, TODO_STATUS } from "./table/common";
 import { Table } from "./table/Table";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-const initialTodoList = [
+type TodoType = {
+    title: string;
+    status: TodoStatus;
+};
+
+const initialTodoList: TodoType[] = [
     { title: "削除機能つける", status: TODO_STATUS.DONE },
     { title: "ローカルストレージに保存する", status: TODO_STATUS.UN_DONE },
     { title: "テストを書く", status: TODO_STATUS.UN_DONE },
 ];
 
 export const TodoPage: React.FC = memo(() => {
-    const [todoList, setTodoList] = useState(initialTodoList);
+    const [storageTodoList, setStorageTodoList] = useLocalStorage<TodoType[]>(
+        "todoList",
+        initialTodoList
+    );
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleAddTodoList = useCallback(
         (title: Title) => {
-            setTodoList([...todoList, { title, status: TODO_STATUS.UN_DONE }]);
+            setStorageTodoList([
+                ...storageTodoList,
+                { title, status: TODO_STATUS.UN_DONE },
+            ]);
         },
-        [todoList]
+        [setStorageTodoList, storageTodoList]
     );
 
     const handleChangeTodoStatus = useCallback(
         (title: string, checked: TodoStatus) => {
-            const newTodoList = todoList.map(todo => {
+            const newTodoList = storageTodoList.map(todo => {
                 if (todo.title === title) {
                     return { title, status: checked };
                 }
                 return todo;
             });
-            setTodoList(newTodoList);
+            setStorageTodoList(newTodoList);
         },
-        [todoList]
+        [setStorageTodoList, storageTodoList]
     );
 
     const handleDeleteTodo = useCallback(
         (title: string) => {
-            const newTodoList = todoList.filter(todo => todo.title !== title);
-            setTodoList(newTodoList);
+            const newTodoList = storageTodoList.filter(
+                todo => todo.title !== title
+            );
+            setStorageTodoList(newTodoList);
         },
-        [todoList]
+        [setStorageTodoList, storageTodoList]
     );
 
     const handleOpenDialog = useCallback(() => {
@@ -52,8 +66,8 @@ export const TodoPage: React.FC = memo(() => {
     }, []);
 
     const todoTitleList = useMemo(() => {
-        return todoList.map(todo => todo.title);
-    }, [todoList]);
+        return storageTodoList.map(todo => todo.title);
+    }, [storageTodoList]);
 
     return (
         <Box
@@ -64,7 +78,7 @@ export const TodoPage: React.FC = memo(() => {
             }}
         >
             <Table
-                todoList={todoList}
+                todoList={storageTodoList}
                 onChecked={handleChangeTodoStatus}
                 onDelete={handleDeleteTodo}
             />

@@ -10,15 +10,19 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
         }
     });
 
-    const setValue = (value: T | ((value: T) => T)) => {
+    const setValue = (value: T | ((value: T) => T), merge?: boolean) => {
         try {
             const valueToStore =
                 value instanceof Function ? value(storedValue) : value;
-            setStoredValue(valueToStore);
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            const mergedValue = merge
+                ? { ...storedValue, ...valueToStore }
+                : valueToStore;
+            setStoredValue(mergedValue);
+            window.localStorage.setItem(key, JSON.stringify(mergedValue));
         } catch (error) {
             console.log(error);
         }
     };
+
     return [storedValue, setValue] as const;
 };
