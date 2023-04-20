@@ -1,9 +1,9 @@
 import { memo, useCallback, useMemo, useState } from "react";
+import { Box } from "@mui/material";
 import { AddButton } from "./button/AddButton";
 import { TodoDialog } from "./dialog/TodoDialog";
 import { Title, TodoStatus, TODO_STATUS } from "./table/common";
 import { Table } from "./table/Table";
-import { Box } from "@mui/material";
 
 const initialTodoList = [
     { title: "削除機能つける", status: TODO_STATUS.DONE },

@@ -1,7 +1,7 @@
 import { Box, createTheme, ThemeProvider } from "@mui/material";
 import { useMemo, useState } from "react";
 import { AppHeader } from "./header/AppHeader";
-import { TodoPage } from "./todo/TodoPage";
+import { TodoPage } from "./features/todo/TodoPage";
 import {
     COLOR_MODE,
     ColorMode,
