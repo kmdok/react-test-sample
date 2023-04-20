@@ -12,6 +12,8 @@ export const COLOR_MODE = {
     DARK: "dark" as PaletteMode,
 };
 
+export const initialTheme: () => ColorMode = () => COLOR_MODE.DARK;
+
 export type ColorMode = (typeof COLOR_MODE)[keyof typeof COLOR_MODE];
 
 export const getDesignTokens = (mode: ColorMode) => ({

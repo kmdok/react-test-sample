@@ -7,26 +7,31 @@ import {
     ColorMode,
     ColorModeContext,
     getDesignTokens,
+    initialTheme,
 } from "./color/colors";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
-    const [colorMode, setColorMode] = useState<ColorMode>(COLOR_MODE.DARK);
+    const [themeValue, setThemeValue] = useLocalStorage<ColorMode>(
+        "theme",
+        initialTheme()
+    );
     const changeColorMode = useMemo(
         () => ({
             changeColorMode: () => {
-                setColorMode(prevMode =>
-                    prevMode === COLOR_MODE.DARK
+                setThemeValue(prevStoredValue => {
+                    return prevStoredValue === COLOR_MODE.DARK
                         ? COLOR_MODE.LIGHT
-                        : COLOR_MODE.DARK
-                );
+                        : COLOR_MODE.DARK;
+                });
             },
         }),
-        []
+        [setThemeValue]
     );
 
     const theme = useMemo(
-        () => createTheme(getDesignTokens(colorMode)),
-        [colorMode]
+        () => createTheme(getDesignTokens(themeValue)),
+        [themeValue]
     );
 
     return (
