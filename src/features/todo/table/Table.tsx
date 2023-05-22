@@ -1,29 +1,25 @@
 import { memo, useCallback } from "react";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { Todo, TodoList, TodoStatus, TODO_STATUS } from "./common";
+import { Todo, TodoStatus, TODO_STATUS } from "./common";
 import { DeleteButton } from "../button/DeleteButton";
+import { useTodoList } from "../hooks/useTodoContext";
 
-type TableProps = {
-    todoList: TodoList;
-    onChecked: (title: string, status: TodoStatus) => void;
-    onDelete: (title: string) => void;
-};
-
-export const Table: React.FC<TableProps> = memo(props => {
-    const { todoList, onChecked, onDelete } = props;
+export const Table: React.FC = memo(props => {
+    const { todoList, handleChangeTodoStatus, handleDeleteTodo } =
+        useTodoList();
 
     const handleChecked = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-            onChecked(event.target.value, checked);
+            handleChangeTodoStatus(event.target.value, checked);
         },
-        [onChecked]
+        [handleChangeTodoStatus]
     );
 
     const handleClickDelete = useCallback(
         (title: string) => {
-            onDelete(title);
+            handleDeleteTodo(title);
         },
-        [onDelete]
+        [handleDeleteTodo]
     );
 
     const rowStyle = useCallback((status: TodoStatus): object => {

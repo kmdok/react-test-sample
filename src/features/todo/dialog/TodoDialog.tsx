@@ -8,16 +8,15 @@ import {
 } from "@mui/material";
 import { CloseButton } from "./button/CloseButton";
 import { SubmitButton } from "./button/SubmitButton";
-import { Title } from "../table/common";
+import { useTodoList } from "../hooks/useTodoContext";
 
 type TodoDialogProps = {
-    todoTitleList: Title[];
     open: boolean;
-    onSubmit: (title: string) => void;
     onClose: () => void;
 };
 export const TodoDialog: React.FC<TodoDialogProps> = memo(props => {
-    const { todoTitleList, open, onSubmit, onClose } = props;
+    const { open, onClose } = props;
+    const { todoList, handleAddTodoList } = useTodoList();
 
     const [toDoTitle, setTodoTitle] = useState("");
     const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -31,19 +30,19 @@ export const TodoDialog: React.FC<TodoDialogProps> = memo(props => {
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValue = event.target.value;
             setTodoTitle(inputValue);
-            if (todoTitleList.some(todo => todo === inputValue)) {
+            if (todoList.some(todo => todo.title === inputValue)) {
                 setSubmitDisabled(true);
                 return;
             }
             setSubmitDisabled(false);
         },
-        [todoTitleList]
+        [todoList]
     );
 
     const handleSubmitTodo = useCallback(() => {
-        onSubmit(toDoTitle);
+        handleAddTodoList(toDoTitle);
         onClose();
-    }, [onClose, onSubmit, toDoTitle]);
+    }, [onClose, handleAddTodoList, toDoTitle]);
 
     return (
         <Dialog open={open}>
